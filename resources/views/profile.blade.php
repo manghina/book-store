@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="app">
-        <dashboard></dashboard>
+        <user-profile></user-profile>
     </div>
 
 </body>

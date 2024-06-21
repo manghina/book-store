@@ -1,4 +1,10 @@
 import { createApp } from 'vue';
-import App from './components/Dashboard.vue';
+import Dashboard from './components/Dashboard.vue';
+import UserProfile from './components/UserProfile.vue';
 
-createApp(App).mount('#app');
+const app = createApp({});
+
+app.component('dashboard', Dashboard);
+app.component('user-profile', UserProfile);
+
+app.mount('#app');
