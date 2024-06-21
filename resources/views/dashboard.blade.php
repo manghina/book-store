@@ -5,12 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
-        <dashboard></dashboard>
-    </div>
-    <script src="{{ mix('js/app.js') }}"></script>
+    <div id="app"></div>
 </body>
 </html>
