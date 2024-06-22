@@ -14,8 +14,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::middleware(['auth:api'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('user', [UserController::class, 'update']);
-    Route::get('books', [BookController::class, 'all']);    
-    Route::get('book/{id}', [BookController::class, 'get']);    
 });
 
 Route::middleware(['auth:api', 'role:user'])->group(function () {
