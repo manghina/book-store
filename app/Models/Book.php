@@ -27,6 +27,16 @@ class Book extends Model
     {
         return $this->belongsToMany(User::class)->using(BookUser::class);
     }
-    
-
+    public function scopeWithWishlistFlag($query, $userId)
+    {
+        if(!empty($userId)) {
+            return $query->leftJoin('wishlists', function ($join) use ($userId) {
+                $join->on('books.id', '=', 'wishlists.book_id')
+                    ->where('wishlists.user_id', '=', $userId);
+            })
+            ->select('books.*')
+            ->selectRaw('CASE WHEN wishlists.id IS NULL THEN 0 ELSE 1 END AS is_in_wishlist');
+        }
+        return $query;
+    }
 }
