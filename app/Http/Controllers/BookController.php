@@ -23,9 +23,9 @@ class BookController extends Controller
     public function get($id)
     {
         $record = Book::where('id', $id)->get();
-        return response()->json([
-            'data' => $record
-        ], 200);
+            return response()->json([
+                'data' => $record[0]
+            ], 200);
     }
 
 
@@ -45,8 +45,10 @@ class BookController extends Controller
                 'required'                
             ],
             'price' => [
-                'integer',
                 'required'                
+            ],
+            'author' => [
+                'string'                
             ]
         ]);
 
@@ -54,10 +56,10 @@ class BookController extends Controller
             return response()->json([
                 'errors' => $validator->getMessageBag()
                     ->toArray()
-            ], Response::HTTP_BAD_REQUEST);
+            ], 500);
         }   
 
-        $data = $request->only([ 'name', 'description','photo','price']);
+        $data = $request->only([ 'name', 'description','photo','price','author']);
         $record = Book::find($request->get("id"));
         if (empty($record)) {
             return "No record found with id: " . $id;
@@ -84,8 +86,10 @@ class BookController extends Controller
                 'required'                
             ],
             'price' => [
-                'integer',
                 'required'                
+            ],
+            'author' => [
+                'string'                
             ]
         ]);
 
@@ -95,7 +99,7 @@ class BookController extends Controller
                     ->toArray()
             ], Response::HTTP_BAD_REQUEST);
         }   
-        $data = $request->only([ 'name', 'description','photo','price']);
+        $data = $request->only([ 'name', 'description','photo','price','author']);
         $record = new Book();
         $record->fill($data);
         $record->save();

@@ -25,5 +25,5 @@ Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::get('user/{id}', [UserController::class, 'get']);
     Route::put('book', [BookController::class, 'create']);    
     Route::post('book', [BookController::class, 'update']);       
-    Route::delete('book', [BookController::class, 'delete']);       
+    Route::delete('book/{id}', [BookController::class, 'delete']);       
 });
