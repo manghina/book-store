@@ -12,11 +12,10 @@ class BookController extends Controller
 
     public function all()
     {
-
-        $records = Book::all();
-
+        $user = request()->user() ?? '';
+        $books = Book::withWishlistFlag($user->id ?? '')->get();
         return response()->json([
-            'data' => $records
+            'data' => $books
         ], 200);
     }
 
@@ -34,15 +33,15 @@ class BookController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => [
                 'string',
-                'required'                
+                'required'
             ],
             'description' => [
                 'string',
-                'required'                
+                'required'
             ],
             'photo' => [
                 'string',
-                'required'                
+                'required'
             ],
             'price' => [
                 'required'                
@@ -64,10 +63,10 @@ class BookController extends Controller
         if (empty($record)) {
             return "No record found with id: " . $id;
         }
-        
+
         $record->fill($data);
         $record->save();
-        return $record; 
+        return $record;
     }
 
     public function create(Request $request)
@@ -75,15 +74,15 @@ class BookController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => [
                 'string',
-                'required'                
+                'required'
             ],
             'description' => [
                 'string',
-                'required'                
+                'required'
             ],
             'photo' => [
                 'string',
-                'required'                
+                'required'
             ],
             'price' => [
                 'required'                
@@ -103,7 +102,7 @@ class BookController extends Controller
         $record = new Book();
         $record->fill($data);
         $record->save();
-        return $record; 
+        return $record;
     }
 
     public function delete($id)
@@ -111,5 +110,5 @@ class BookController extends Controller
         Book::where('id', $id)->delete();
         return response()->json(['message' => 'Row deleted successfully']);
     }
-    
+
 }
