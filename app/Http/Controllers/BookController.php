@@ -27,6 +27,14 @@ class BookController extends Controller
             ], 200);
     }
 
+    public function getView($id)
+    {
+        $record = Book::where('id', $id)->get();
+            return response()->json([
+                'data' => $record[0]
+            ], 200);
+    }
+
 
     public function update(Request $request)
     {

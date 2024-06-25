@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         $record = User::where('id', $id)->get();
         return response()->json([
-            'data' => $record
+            'data' => $record[0]
         ], 200);
     }
 
@@ -52,11 +52,9 @@ class UserController extends Controller
                 'string'
             ],
             'email' => [
-                'required',
                 'email'
             ],
             'password' => [
-                'required',
                 'string'
             ],
             'age' => [
@@ -70,7 +68,7 @@ class UserController extends Controller
                     ->toArray()
             ], Response::HTTP_BAD_REQUEST);
         }   
-        $data = $request->only(['email', 'password', 'role', 'name', 'surname','age','sex']);
+        $data = $request->only(['role', 'name', 'surname','age','sex']);
         $record = User::find($request->get("id"));
         $body = $data;
         if (empty($record)) {
